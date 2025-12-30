@@ -32,7 +32,7 @@ export class StatisticsChartComponent implements AfterViewInit {
       mode: 'range',
       static: true,
       monthSelectorType: 'static',
-      dateFormat: 'M j, Y',
+      dateFormat: 'M j',
       defaultDate: [new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), new Date()],
       onReady: (selectedDates: Date[], dateStr: string, instance: Instance) => {
         (instance.element as HTMLInputElement).value = dateStr.replace('to', '-');
