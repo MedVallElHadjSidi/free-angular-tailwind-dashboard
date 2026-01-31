@@ -30,13 +30,30 @@ export class AuthService {
   handleLoginSuccess(response: AuthResponse) {
     this.tokenService.set(response.access_token);
     // this.authState.setUser(this.mapToUser(response.payload));
+    
+    const payload = this.tokenService.decode<any>();
+    console.log("payload",payload);
+    
+
+if (payload) {
+  this.authState.setUser({
+    id: payload.user_id,
+    username: payload.username,
+    email: payload.email,
+    phone: payload.phone,
+    firstName: payload.first_name,
+    lastName: payload.last_name,
+    groups: payload.groups
+  });
+}
+
     this.router.navigateByUrl('');
   }
 
   logout() {
     this.tokenService.clear();
     this.authState.clear();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/signin');
   }
 //   private mapToUser(payload: AuthResponse['payload']): User {
 //   return {

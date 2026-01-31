@@ -3,6 +3,8 @@ import { DropdownComponent } from '../../ui/dropdown/dropdown.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdown-item.component-two';
+import { AuthState } from '../../../../core/auth/state/auth.state';
+import { AuthService } from '../../../../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -11,7 +13,7 @@ import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdo
 })
 export class UserDropdownComponent {
   isOpen = false;
-
+constructor(public authState: AuthState, public authService:AuthService) {}
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }

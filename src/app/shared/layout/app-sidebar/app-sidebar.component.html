@@ -26,7 +26,7 @@
       @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
       <img
         class="dark:hidden"
-        src="/images/logo/logo.svg"
+        src="/images/logo/logo-rim.svg"
         alt="Logo"
         width="150"
         height="40"
@@ -262,7 +262,7 @@
                 (isHovered$ | async) ||
                 (isMobileOpen$ | async)
             ) {
-              Others
+              Autres
             } @else {
               <svg
                 width="1em"
@@ -450,8 +450,8 @@
         <!-- end other section -->
       </div>
     </nav>
-    @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
+    <!-- @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
     <app-sidebar-widget />
-    }
+    } -->
   </div>
 </aside>
