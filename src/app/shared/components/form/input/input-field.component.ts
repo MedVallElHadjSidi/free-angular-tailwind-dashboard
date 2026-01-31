@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { forwardRef } from '@angular/core';
 
 @Component({
   selector: 'app-input-field',
   imports: [CommonModule],
+  providers:[    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputFieldComponent),
+      multi: true
+    }],
   template: `
     <div class="relative">
       <input
@@ -50,6 +57,27 @@ export class InputFieldComponent {
   @Input() className: string = '';
 
   @Output() valueChange = new EventEmitter<string | number>();
+ // Angular Forms callbacks
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
+
+  // 🔹 appelé par Angular
+  writeValue(value: any): void {
+    this.value = value ?? '';
+  }
+  
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
 
   get inputClasses(): string {
     let inputClasses = `h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 ${this.className}`;
@@ -68,6 +96,10 @@ export class InputFieldComponent {
 
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
+    this.value = input.value;
+    this.onChange(this.value);   
     this.valueChange.emit(this.type === 'number' ? +input.value : input.value);
+ 
+ 
   }
 }
